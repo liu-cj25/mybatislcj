@@ -7,7 +7,7 @@
 <!-- namespace指定对应的dao层 -->
 <mapper namespace="com.mybatis.mapper.CustomerMapper">
    <select id="findCustomerById" parameterType="Integer" resultType="com.mybatis.po.Customer">
-       select * from customer where id=#{id}
+       select * from customer
    </select>
 
 
