@@ -25,11 +25,9 @@ public class MybatisUtil {
             InputStream inputStream = Resources.getResourceAsStream(resource);
             //根据配置文件，构建sqlsessionfactory
             sqlSessionFactory=new SqlSessionFactoryBuilder().build(inputStream);
-
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
     //获取sqlsession对象的静态方法
     public static SqlSession getsession(){

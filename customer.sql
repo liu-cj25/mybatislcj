@@ -34,5 +34,6 @@ CREATE TABLE `customer`  (
 -- ----------------------------
 INSERT INTO `customer` VALUES ('001', '李四', '送货', '13467608978');
 INSERT INTO `customer` VALUES ('002', '张三', '仓管', '13456');
+INSERT INTO `customer` VALUES ('003', '常江', '靓仔', '13456');
 
 SET FOREIGN_KEY_CHECKS = 1;
