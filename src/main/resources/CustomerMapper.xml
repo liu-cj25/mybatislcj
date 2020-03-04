@@ -6,7 +6,7 @@
 <!-- 设置为LabInfoDao接口方法提供sql语句配置 -->
 <!-- namespace指定对应的dao层 -->
 <mapper namespace="com.mybatis.mapper.CustomerMapper">
-   <select id="findCustomerById" parameterType="Integer" resultType="com.mybatis.po.Customer">
+   <select id="findCustomerById" parameterType="Integer" resultType="Customer">
        select * from customer
    </select>
 
