@@ -5,16 +5,16 @@ package com.mybatis.po;
  * @date 2020/2/29 下午 23:00
  */
 public class Customer {
-    private String id;
+    private int id;
     private String username;
     private String jobs;
     private String phone;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

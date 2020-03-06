@@ -6,7 +6,8 @@
 <!-- 设置为LabInfoDao接口方法提供sql语句配置 -->
 <!-- namespace指定对应的dao层 -->
 <mapper namespace="com.mybatis.mapper.CustomerMapper">
-   <select id="findById" parameterType="String" resultType="Customer">
+    <!--<cache></cache>-->
+   <select id="findById" parameterType="int" resultType="Customer">
        select * from customer where id=#{id}
    </select>
 
@@ -20,11 +21,11 @@
         where id=#{id}
     </update>
 
-    <delete id="deleteCustomer" parameterType="Customer">
+    <delete id="deleteCustomer" parameterType="Customer" timeout="10">
         delete from customer where id=#{id}
     </delete>
 
-    <insert id="insertCustomer" parameterType="Customer">
-        insert into customer (id,username,jobs,phone) values (#{id},#{username},#{jobs},#{phone})
+    <insert id="insertCustomer" parameterType="Customer" >
+        insert into customer (username,jobs,phone) values (#{username},#{jobs},#{phone})
     </insert>
 </mapper>

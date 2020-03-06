@@ -34,7 +34,7 @@ public class MybatisTest {
         CustomerMapper customerMapper=sqlSession.getMapper(CustomerMapper.class);
         //查id
         Customer customer =new Customer();
-        customer.setId("003");
+        customer.setId(3);
         Customer customer1=customerMapper.findById(customer.getId());
         System.out.println(customer1);
         sqlSession.close();
@@ -58,7 +58,7 @@ public class MybatisTest {
     public void updateTest(){
         CustomerMapper customerMapper =sqlSession.getMapper(CustomerMapper.class);
         Customer customer =new Customer();
-        customer.setId("003");
+        customer.setId(3);
         customer.setUsername("量子啊靓仔");
         int count=customerMapper.updateCustomerById(customer);
         if (count>0){
@@ -73,7 +73,7 @@ public class MybatisTest {
     public void deleteTest(){
         CustomerMapper customerMapper= sqlSession.getMapper(CustomerMapper.class);
         Customer customer=new Customer();
-        customer.setId("002");
+        customer.setId(2);
         int count=customerMapper.deleteCustomer(customer);
         sqlSession.commit();
         if (count>0){
@@ -87,7 +87,7 @@ public class MybatisTest {
     public void insertTest(){
         CustomerMapper customerMapper=sqlSession.getMapper(CustomerMapper.class);
         Customer customer=new Customer();
-        customer.setId("002");
+//        customer.setId("006");
         customer.setUsername("开开");
         customer.setJobs("程序员王牌");
         customer.setPhone("13046255571");

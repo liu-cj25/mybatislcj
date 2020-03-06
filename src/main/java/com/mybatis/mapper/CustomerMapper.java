@@ -9,7 +9,7 @@ import java.util.List;
  * @date 2020/3/4 下午 12:45
  */
 public interface CustomerMapper {
-    Customer findById(String  id);
+    Customer findById(int  id);
     List<Customer> findAll();
     int updateCustomerById(Customer customer);
     int deleteCustomer(Customer customer);
