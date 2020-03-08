@@ -14,4 +14,6 @@ public interface CustomerMapper {
     int updateCustomerById(Customer customer);
     int deleteCustomer(Customer customer);
     int insertCustomer(Customer customer);
+    List<Customer> IfSelectByName(Customer customer);
+    List<Customer> ChooseSelect(Customer customer);
 }

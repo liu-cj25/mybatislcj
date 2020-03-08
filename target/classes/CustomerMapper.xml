@@ -6,13 +6,25 @@
 <!-- 设置为LabInfoDao接口方法提供sql语句配置 -->
 <!-- namespace指定对应的dao层 -->
 <mapper namespace="com.mybatis.mapper.CustomerMapper">
+    <sql id="customerColumn">id,username,jobs,phone</sql>
+    <resultMap id="rcuResultMap" type="Customer">
+        <!-- property：主键在pojo中的属性名 -->
+        <!-- column：主键在数据库中的列名 -->
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="jobs" column="jobs"/>
+        <result property="phone" column="phone"/>
+    </resultMap>
+
     <!--<cache></cache>-->
-   <select id="findById" parameterType="int" resultType="Customer">
-       select * from customer where id=#{id}
+   <select id="findById" parameterType="int" resultMap="rcuResultMap">
+       select <include refid="customerColumn"/>
+       from customer where id=#{id}
    </select>
 
     <select id="findAll" resultType="Customer">
-        select * from customer
+        select <include refid="customerColumn"/>
+         from customer
     </select>
 
     <update id="updateCustomerById" parameterType="Customer">
@@ -28,4 +40,34 @@
     <insert id="insertCustomer" parameterType="Customer" >
         insert into customer (username,jobs,phone) values (#{username},#{jobs},#{phone})
     </insert>
+
+    <!--if条件进行查询
+        模糊查询名字，且具体工作的
+        多个条件一起执行
+    -->
+    <select id="IfSelectByName" resultType="Customer" parameterType="Customer">
+        select * from customer where 1=1
+        <if test="username!=null and username!=''">
+            and username like concat('%',#{username},'%')
+        </if>
+        <if test="jobs!=null and jobs!=''">
+            and jobs =#{jobs}
+        </if>
+    </select>
+
+    <!--choose的用法  多个条件找一个条件执行-->
+    <select id="ChooseSelect" resultMap="rcuResultMap" parameterType="Customer">
+       select * from customer where 1=1
+       <choose>
+           <when test="username!=null and username!=''">
+               and username like concat('%',#{username},'%')
+           </when>
+           <when test="jobs!=null and jobs!=''">
+               and jobs =#{jobs}
+           </when>
+           <otherwise>
+               and phone is not null
+           </otherwise>
+       </choose>
+    </select>
 </mapper>

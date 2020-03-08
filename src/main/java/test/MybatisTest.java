@@ -87,7 +87,6 @@ public class MybatisTest {
     public void insertTest(){
         CustomerMapper customerMapper=sqlSession.getMapper(CustomerMapper.class);
         Customer customer=new Customer();
-//        customer.setId("006");
         customer.setUsername("开开");
         customer.setJobs("程序员王牌");
         customer.setPhone("13046255571");
