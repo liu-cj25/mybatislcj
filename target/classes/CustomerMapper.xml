@@ -46,28 +46,85 @@
         多个条件一起执行
     -->
     <select id="IfSelectByName" resultType="Customer" parameterType="Customer">
-        select * from customer where 1=1
-        <if test="username!=null and username!=''">
-            and username like concat('%',#{username},'%')
-        </if>
-        <if test="jobs!=null and jobs!=''">
-            and jobs =#{jobs}
-        </if>
+        select * from customer
+        <where>
+            <if test="username!=null and username!=''">
+                and username like concat('%',#{username},'%')
+            </if>
+            <if test="jobs!=null and jobs!=''">
+                and jobs =#{jobs}
+            </if>
+        </where>
+
     </select>
 
     <!--choose的用法  多个条件找一个条件执行-->
     <select id="ChooseSelect" resultMap="rcuResultMap" parameterType="Customer">
-       select * from customer where 1=1
-       <choose>
-           <when test="username!=null and username!=''">
-               and username like concat('%',#{username},'%')
-           </when>
-           <when test="jobs!=null and jobs!=''">
-               and jobs =#{jobs}
-           </when>
-           <otherwise>
-               and phone is not null
-           </otherwise>
-       </choose>
+       select * from customer
+        <where>
+            <choose>
+                <when test="username!=null and username!=''">
+                    and username like concat('%',#{username},'%')
+                </when>
+                <when test="jobs!=null and jobs!=''">
+                    and jobs =#{jobs}
+                </when>
+                <otherwise>
+                    and phone is not null
+                </otherwise>
+            </choose>
+        </where>
+
+    </select>
+
+    <!--动态更新set set标签的使用-->
+    <update id="UpdateCustomerSet" parameterType="Customer">
+        update customer
+        <set>
+            <if test="username!=null and username!=''">
+                username=#{username},
+            </if>
+            <if test="jobs!=null and jobs!=''">
+                 jobs =#{jobs}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!--使用动态foreach实现遍历
+    传入的情况：单参数list的类型的映射配置
+    parameterType:-->
+    <select id="selectForEach" resultMap="rcuResultMap" >
+        select * from customer
+        where id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!--传入array类型-->
+    <select id="ForEachArray" resultMap="rcuResultMap">
+        select * from customer
+        where id in
+        <foreach collection="array" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!--传入map类型 在这个多个id里面查找模糊查询-->
+    <select id="forEachMap" resultMap="rcuResultMap">
+        select * from customer
+        where --  username  like concat('%',#{username},'%') and
+        id in
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <!--bind的使用 -->
+    <select id="bindSelect" parameterType="Customer" resultType="Customer">
+        <bind name="bind_name" value="'%'+username+'%'"/>
+            select  *
+            from customer
+            where username like #{bind_name}
     </select>
 </mapper>

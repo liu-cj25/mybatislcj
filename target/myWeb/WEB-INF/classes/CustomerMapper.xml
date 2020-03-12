@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为LabInfoDao接口方法提供sql语句配置 -->
+<!-- namespace指定对应的dao层 -->
+<mapper namespace="com.mybatis.mapper.CustomerMapper">
+    <!--<cache></cache>-->
+   <select id="findById" parameterType="int" resultType="Customer">
+       select * from customer where id=#{id}
+   </select>
+
+    <select id="findAll" resultType="Customer">
+        select * from customer
+    </select>
+
+    <update id="updateCustomerById" parameterType="Customer">
+        update customer
+        set username=#{username}
+        where id=#{id}
+    </update>
+
+    <delete id="deleteCustomer" parameterType="Customer" timeout="10">
+        delete from customer where id=#{id}
+    </delete>
+
+    <insert id="insertCustomer" parameterType="Customer" >
+        insert into customer (username,jobs,phone) values (#{username},#{jobs},#{phone})
+    </insert>
+</mapper>

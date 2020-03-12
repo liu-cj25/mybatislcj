@@ -31,9 +31,5 @@
     <!--2.配置Mapper的位置 -->
     <mappers>
         <mapper resource="CustomerMapper.xml"/>
-        <mapper resource="IdCardMapper.xml"/>
-        <mapper resource="PersonMapper.xml"/>
-        <mapper resource="UserMapper.xml"/>
-        <mapper resource="OrdersMapper.xml"/>
     </mappers>
 </configuration>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为LabInfoDao接口方法提供sql语句配置 -->
+<!-- namespace指定对应的dao层 -->
+<mapper namespace="com.mybatis.mapper.UserMapper">
+    <resultMap id="UserMapOne" type="User">
+        <id property="user_id" column="user_id" />
+        <result property="username" column="username"/>
+        <result property="address" column="address"/>
+        <collection property="orders" ofType="com.mybatis.po.Orders">
+            <id property="order_id" column="order_id"></id>
+            <result property="number" column="number"></result>
+        </collection>
+    </resultMap>
+    <select id="findUserWithOrder" parameterType="Integer" resultMap="UserMapOne">
+        select tb_user.*,tb_order.order_id,tb_order.number
+        from tb_user,tb_order
+        where tb_user.user_id=tb_order.user_id
+        and tb_user.user_id=#{user_id}
+    </select>
+
+</mapper>

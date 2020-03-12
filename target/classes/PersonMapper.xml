@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为LabInfoDao接口方法提供sql语句配置 -->
+<!-- namespace指定对应的dao层 -->
+<mapper namespace="com.mybatis.mapper.PersonMapper">
+    <resultMap id="findByCardIdResult" type="Person">
+        <id property="person_id" column="person_id"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <association property="idCard" column="card_id" javaType="IdCard"
+            select="com.mybatis.mapper.IdCardMapper.findByIdCard"
+        />
+    </resultMap>
+
+<select id="findPersonByID" parameterType="Person" resultMap="findByCardIdResult">
+    select * from tb_person
+    where person_id=#{person_id}
+</select>
+</mapper>
